@@ -100,9 +100,23 @@ var apagarLuz = new ApagarLuzComando(luz);
 var encenderVentilador = new EncenderVentiladorComando(ventilador);
 var apagarVentilador = new ApagarVentiladorComando(ventilador);
 var controlRemoto = new ControlRemoto();
-console.log("Acciones:");
-controlRemoto.ejecutarComando(encenderLuz);
-controlRemoto.ejecutarComando(encenderVentilador);
-console.log("\nDeshacer últimas acciones:");
-controlRemoto.deshacerUltimoComando();
-controlRemoto.deshacerUltimoComando();
+var ApiClient = /** @class */ (function () {
+    function ApiClient() {
+    }
+    ApiClient.prototype.send = function (message) {
+        console.log("Send XMPP: ".concat(message));
+    };
+    return ApiClient;
+}());
+var SendMessageCommand = /** @class */ (function () {
+    function SendMessageCommand(message) {
+        this.apiClient = new ApiClient();
+        this.message = message;
+    }
+    SendMessageCommand.prototype.execute = function () {
+        this.apiClient.send(this.message);
+    };
+    return SendMessageCommand;
+}());
+var sendMessageCommand = new SendMessageCommand("Hola Agustin desde comando");
+sendMessageCommand.execute();

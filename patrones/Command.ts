@@ -122,11 +122,52 @@ interface Comando {
   
   const controlRemoto = new ControlRemoto();
   
-  console.log("Acciones:");
-  controlRemoto.ejecutarComando(encenderLuz);
-  controlRemoto.ejecutarComando(encenderVentilador);
+  //console.log("Acciones:");
+  //controlRemoto.ejecutarComando(encenderLuz);
+  //controlRemoto.ejecutarComando(encenderVentilador);
+  //
+  //console.log("\nDeshacer últimas acciones:");
+  //controlRemoto.deshacerUltimoComando();
+  //controlRemoto.deshacerUltimoComando();
   
-  console.log("\nDeshacer últimas acciones:");
-  controlRemoto.deshacerUltimoComando();
-  controlRemoto.deshacerUltimoComando();
-  
+
+  /*
+  EJEMPLO TS
+  */
+
+  interface API{
+    send(message: string): void
+  }
+
+  class ApiClient implements API {
+    send(message: string) {
+      console.log(`Send XMPP: ${message}`)
+    }
+  }
+
+  interface Command{
+    execute(): void
+  }
+
+  class SendMessageCommand implements Command {
+    private message: string
+    private apiClient: API
+
+    constructor(message: string){
+      this.apiClient = new ApiClient()
+      this.message = message
+    }
+
+    execute(): void {
+      this.apiClient.send(this.message)
+    }
+  }
+
+  let sendMessageCommand = new SendMessageCommand("Hola Agustin desde comando")
+  sendMessageCommand.execute()
+
+  /*
+  Como ves, este comando es muy util para seguir uno de los principios SOLID, en este 
+  caso el de Single Responsibility Principle donde creamos una clase comando con una 
+  única misión: enviar un mensaje a través de nuesto APIClient.
+  */
