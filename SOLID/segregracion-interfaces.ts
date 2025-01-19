@@ -47,3 +47,26 @@ interface Imprimible {
   const impresoraMultifuncional = new ImpresoraMultifuncional();
   impresoraMultifuncional.imprimir("Contrato");
   console.log(impresoraMultifuncional.escanear());
+
+
+/*
+  podemos combinar interfaces
+*/
+
+  interface Prueba1 {
+    realizarAccion():void
+  }
+
+  interface Prueba2 extends Prueba1 {
+    realizarAccion2():void
+  }
+
+  class Prueba implements Prueba2 {
+    realizarAccion2(): void {
+      throw new Error("Method not implemented.");
+    }
+    realizarAccion(): void {
+      throw new Error("Method not implemented.");
+    }
+
+  }

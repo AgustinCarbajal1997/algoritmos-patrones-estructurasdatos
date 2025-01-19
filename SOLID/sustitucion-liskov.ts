@@ -78,3 +78,4 @@ class CuentaBancaria {
   // Usamos una CuentaCorriente
   const cuentaCorriente = new CuentaCorriente(300, 200);
   procesarCuenta(cuentaCorriente);
+
